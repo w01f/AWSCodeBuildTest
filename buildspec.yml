@@ -1,0 +1,16 @@
+version: 0.2
+
+phases:
+    install:
+        runtime-versions:
+            dotnet: 5.0
+    build:
+        commands:
+            - dotnet build -c Release ./AWSCodeBuildTest.Core/AWSCodeBuildTest.Core.csproj
+            - dotnet test -c Release ./AWSCodeBuildTest.Test/AWSCodeBuildTest.Test.csproj --logger trx --results-directory ./testresults
+reports:
+    DotnetTestExamples:
+        file-format: VisualStudioTrx
+        files:
+            - '**/*'
+        base-directory: './testresults'
